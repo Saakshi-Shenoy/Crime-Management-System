@@ -27,7 +27,7 @@ class Criminal:
         self.notebook.pack(fill=BOTH, expand=YES)
 
         self.create_criminal_tab()
-        # self.create_case_tab()
+        self.create_case_tab()
         # self.create_crimes_tab()
 
 
@@ -37,7 +37,7 @@ class Criminal:
 
         ttk.Label(criminal_tab, text="").pack()
 
-    # Upper_frame (Criminal Information)
+        # Upper_frame (Criminal Information)
         upper_frame = LabelFrame(criminal_tab, bd=2, relief=RIDGE, text='Criminal Information', font=('times new roman', 11, 'bold'), fg='red', bg='white')
         upper_frame.place(x=10, y=10, width=1500, height=560)
 
@@ -190,6 +190,150 @@ class Criminal:
         self.criminal_table.column("7",width=100)
         self.criminal_table.column("8",width=100)
         self.criminal_table.column("9",width=100)
+
+        self.criminal_table.pack(fill=BOTH,expand=1)
+
+    def create_case_tab(self):
+        case_tab = ttk.Frame(self.notebook)
+        self.notebook.add(case_tab, text="Cases")
+
+        ttk.Label(case_tab, text="").pack()
+
+        # Upper_frame (Criminal Information)
+        upper_frame = LabelFrame(case_tab, bd=2, relief=RIDGE, text='Case Related Information', font=('times new roman', 11, 'bold'), fg='red', bg='white')
+        upper_frame.place(x=10, y=10, width=1500, height=560)
+
+        caseid=Label(upper_frame,text='Case_ID:',font=('arial',11,'bold'),bg='white')
+        caseid.grid(row=0,column=0,padx=2,sticky=W)
+
+        caseentry=ttk.Entry(upper_frame, width=22,font=('arial',11,'bold'))
+        caseentry.grid(row=0,column=1,padx=2,sticky=W)
+
+        startDate=Label(upper_frame,font=('arial',12,'bold'),text="Start_date:",bg='white')
+        startDate.grid(row=0,column=2,sticky=W,padx=2,pady=7)
+
+        txt_sDate=ttk.Entry(upper_frame,width=22,font=('arial',11,'bold'))
+        txt_sDate.grid(row=0,column=3,sticky=W,padx=2,pady=7)
+
+        #End date
+        endDate=Label(upper_frame,font=('arial',12,'bold'),text="End_date:",bg='white')
+        endDate.grid(row=0,column=4,sticky=W,padx=2,pady=7)
+
+        txt_eDate=ttk.Entry(upper_frame,width=22,font=('arial',11,'bold'))
+        txt_eDate.grid(row=0,column=5,sticky=W,padx=2,pady=7)
+
+        #Judge
+        judge=Label(upper_frame,font=('arial',12,'bold'),text="Judge:",bg='white')
+        judge.grid(row=1,column=0,sticky=W,padx=2,pady=7)
+
+        txt_judge=ttk.Entry(upper_frame,width=22,font=('arial',11,'bold'))
+        txt_judge.grid(row=1,column=1,sticky=W,padx=2,pady=7)
+
+        # Verdict
+        verdict=Label(upper_frame,font=('arial',12,'bold'),text="Verdict:",bg='white')
+        verdict.grid(row=1,column=2,sticky=W,padx=2,pady=7)
+
+        txt_verdict=ttk.Entry(upper_frame,width=22,font=('arial',11,'bold'))
+        txt_verdict.grid(row=1,column=3,sticky=W,padx=2,pady=7)
+
+        #criminal id
+        lbl_criminalID=Label(upper_frame,font=('arial',12,'bold'),text="Criminal_ID:",bg='white')
+        lbl_criminalID.grid(row=1,column=4,sticky=W,padx=2,pady=7)
+
+        txt_criminalID=ttk.Entry(upper_frame,width=22,font=('arial',11,'bold'))
+        txt_criminalID.grid(row=1,column=5,sticky=W,padx=2,pady=7)
+
+        #crime-id
+        crimeid=Label(upper_frame,font=('arial',12,'bold'),text="Crime_ID:",bg='white')
+        crimeid.grid(row=2,column=0,sticky=W,padx=2,pady=7)
+
+        txt_crimeid=ttk.Entry(upper_frame, width=22,font=('arial',11,'bold'))
+        txt_crimeid.grid(row=2,column=1,sticky=W,padx=2,pady=7)
+
+        # Buttons for Information
+        button_frame = Frame(upper_frame, bd=2, relief=RIDGE, bg='white')
+        button_frame.place(x=5, y=200, width=620, height=45)
+        btn_add = Button(button_frame, text='Save', font=('arial', 13, 'bold'), width=14, bg='blue', fg='white')
+        btn_add.grid(row=0, column=0, padx=3, pady=5)
+        
+        btn_update=Button(button_frame,text='Update',font=('arial',13,'bold'),width=14,bg='blue',fg='white')
+        btn_update.grid(row=0,column=1,padx=3,pady=5)
+
+        #Delete Button
+        btn_delete=Button(button_frame,text='Delete',font=('arial',13,'bold'),width=14,bg='blue',fg='white')
+        btn_delete.grid(row=0,column=2,padx=3,pady=5)
+
+        #Clear Button
+        btn_clear=Button(button_frame,text='Clear',font=('arial',13,'bold'),width=14,bg='blue',fg='white')
+        btn_clear.grid(row=0,column=3,padx=3,pady=5)
+
+         #Main_frame
+        Main_frame = Frame(case_tab, bd=2, relief=RIDGE, bg='white')
+        Main_frame.place(x=10, y=280, width=1500, height=560)
+        
+        down_frame=LabelFrame(Main_frame,bd=2,relief=RIDGE,text='Case Information Table',font=('times new roman',11,'bold'),fg='red',bg='white')
+        down_frame.place(x=10,y=10,width=1480,height=270)
+
+        search_frame=LabelFrame(down_frame,bd=2,relief=RIDGE,text='Search Case Record',font=('times new roman',11,'bold'),fg='red',bg='white')
+        search_frame.place(x=0,y=0,width=1470,height=60)
+
+        search_by=Label(search_frame,font=("arial",11,"bold"),text="Search By:",bg="red",fg="white")
+        search_by.grid(row=0,column=0,sticky=W,padx=5)
+
+        # self.var_com_search=StringVar()
+        combo_search_box=ttk.Combobox(search_frame,font=("arial",11,"bold"),width=18,state='readonly')
+        combo_search_box['value']=('Select Option','Case_id','Criminal_no')
+        combo_search_box.current(0)
+        combo_search_box.grid(row=0,column=1,sticky=W,padx=5)
+
+        # self.var_search=StringVar()
+        search_txt=ttk.Entry(search_frame,width=18,font=("arial",11,"bold"))
+        search_txt.grid(row=0,column=2,sticky=W,padx=5)
+
+        #search button
+        btn_search=Button(search_frame,text='Search',font=("arial",13,"bold"),width=14,bg='blue')
+        btn_search.grid(row=0,column=3,padx=3,pady=5)
+
+        #all button
+        btn_all=Button(search_frame,text='Show All',font=("arial",13,"bold"),width=14,bg='blue')
+        btn_all.grid(row=0,column=4,padx=3,pady=5)
+
+        crimeagency=Label(search_frame,font=("arial",30,"bold"),text="NATIONAL CRIME AGENCY",bg='white',fg='crimson')
+        crimeagency.grid(row=0,column=5,sticky=W,padx=50,pady=0)
+
+        # Table Frame
+        table_frame=Frame(down_frame,bd=2,relief=RIDGE)
+        table_frame.place(x=0,y=60,width=1470,height=170)
+
+        # Scroll bar
+        scroll_x=ttk.Scrollbar(table_frame,orient=HORIZONTAL)
+        scroll_y=ttk.Scrollbar(table_frame,orient=VERTICAL)
+
+        self.criminal_table=ttk.Treeview(table_frame,column=("1","2","3","4","5","6","7","8","9","10","11","12","13","14"),xscrollcommand=scroll_x.set,yscrollcommand=scroll_y.set)
+
+        scroll_x.pack(side=BOTTOM,fill=X)
+        scroll_y.pack(side=RIGHT,fill=Y)
+
+        scroll_x.config(command=self.criminal_table.xview)
+        scroll_y.config(command=self.criminal_table.yview)
+
+        self.criminal_table.heading("1",text="case_id")
+        self.criminal_table.heading("2",text="start_date")
+        self.criminal_table.heading("3",text="end_date")
+        self.criminal_table.heading("4",text="judge")
+        self.criminal_table.heading("5",text="verdict")
+        self.criminal_table.heading("6",text="criminal_id")
+        self.criminal_table.heading("7",text="crime_id")
+
+        self.criminal_table['show']='headings'
+
+        self.criminal_table.column("1",width=100)
+        self.criminal_table.column("2",width=100)
+        self.criminal_table.column("3",width=100)
+        self.criminal_table.column("4",width=100)
+        self.criminal_table.column("5",width=100)
+        self.criminal_table.column("6",width=100)
+        self.criminal_table.column("7",width=100)
 
         self.criminal_table.pack(fill=BOTH,expand=1)
 

@@ -39,6 +39,16 @@ class Criminal:
         self.var_crime_location=StringVar()
         self.var_incharge_officer=IntVar()
         #crime variables end
+
+        #prison variables start
+        self.var_com_prison_search = StringVar()
+        self.var_prison_search = StringVar()
+        #prison variables end
+
+        #officer variables start
+        self.var_com_officer_search = StringVar()
+        self.var_officer_search = StringVar()
+        #officer variables end
     #    
         lbl_title=Label(self.root,text='CRIMINAL MANAGEMENT SYSTEM SOFTWARE',font=('times new roman',35,'bold'),bg='black',fg='gold')
         lbl_title.place(x=0,y=0,width=1530,height=70)
@@ -677,7 +687,7 @@ class Criminal:
             messagebox.showerror('Error','All fields are required') 
         else:
             try:
-                conn=mysql.connector.connect(host='localhost', username='root',password='password', database='criminal_project')
+                conn=mysql.connector.connect(host='localhost', username='root',password='password', database='crime_project')
                 my_cursor=conn.cursor()
                 my_cursor.execute('select * from crimes where '+str(self.var_com_crime_search.get())+" LIKE'%"+str(self.var_crime_search.get()+"%'"))
                 rows=my_cursor.fetchall()
@@ -761,21 +771,21 @@ class Criminal:
         search_by.grid(row=0,column=0,sticky=W,padx=5)
 
         # self.var_com_search=StringVar()
-        combo_search_box=ttk.Combobox(search_frame,font=("arial",11,"bold"),width=18,state='readonly')
-        combo_search_box['value']=('Select Option','Case_id','Criminal_no')
+        combo_search_box=ttk.Combobox(search_frame,textvariable=self.var_com_prison_search,font=("arial",11,"bold"),width=18,state='readonly')
+        combo_search_box['value']=('Select Option','prison_id')
         combo_search_box.current(0)
         combo_search_box.grid(row=0,column=1,sticky=W,padx=5)
 
         # self.var_search=StringVar()
-        search_txt=ttk.Entry(search_frame,width=18,font=("arial",11,"bold"))
+        search_txt=ttk.Entry(search_frame,textvariable=self.var_prison_search,width=18,font=("arial",11,"bold"))
         search_txt.grid(row=0,column=2,sticky=W,padx=5)
 
         #search button
-        btn_search=Button(search_frame,text='Search',font=("arial",13,"bold"),width=14,bg='blue')
+        btn_search=Button(search_frame,command=self.search_prison_data,text='Search',font=("arial",13,"bold"),width=14,bg='blue')
         btn_search.grid(row=0,column=3,padx=3,pady=5)
 
         #all button
-        btn_all=Button(search_frame,text='Show All',font=("arial",13,"bold"),width=14,bg='blue')
+        btn_all=Button(search_frame,command=self.fetch_prison_data,text='Show All',font=("arial",13,"bold"),width=14,bg='blue')
         btn_all.grid(row=0,column=4,padx=3,pady=5)
 
         crimeagency=Label(search_frame,font=("arial",30,"bold"),text="NATIONAL CRIME AGENCY",bg='white',fg='crimson')
@@ -814,6 +824,40 @@ class Criminal:
         self.prison_table.column("6",width=150)
 
         self.prison_table.pack(fill=BOTH,expand=1)
+        self.fetch_prison_data()
+
+
+    def search_prison_data(self): 
+        if self.var_com_prison_search.get()=="":
+            messagebox.showerror('Error','All fields are required') 
+        else:
+            try:
+                conn=mysql.connector.connect(host='localhost', username='root',password='password', database='crime_project')
+                my_cursor=conn.cursor()
+                my_cursor.execute('select * from prisons where '+str(self.var_com_prison_search.get())+" LIKE'%"+str(self.var_prison_search.get()+"%'"))
+                rows=my_cursor.fetchall()
+                if len(rows)!=0:
+                    self.prison_table.delete(*self.prison_table.get_children())
+                    for i in rows:
+                        self.prison_table.insert('',END,values=i)
+                conn.commit()
+                conn.close()
+            except Exception as es:
+                messagebox.showerror('error',f'Due to{str(es)}') 
+
+    def fetch_prison_data(self):
+        conn=mysql.connector.connect(host='localhost', username='root',password='password', database='crime_project')
+        my_cursor=conn.cursor()
+        my_cursor.execute('select * from prisons')
+        data=my_cursor.fetchall()
+        if len(data)!=0:
+            self.prison_table.delete(*self.prison_table.get_children())
+            for i in data:
+                self.prison_table.insert('',END,values=i)
+            conn.commit()
+        conn.close()
+
+
 
     def create_officers_tab(self):
         officers_tab = ttk.Frame(self.notebook)
@@ -834,21 +878,21 @@ class Criminal:
         search_by.grid(row=0,column=0,sticky=W,padx=5)
 
         # self.var_com_search=StringVar()
-        combo_search_box=ttk.Combobox(search_frame,font=("arial",11,"bold"),width=18,state='readonly')
-        combo_search_box['value']=('Select Option','Case_id','Criminal_no')
+        combo_search_box=ttk.Combobox(search_frame,textvariable=self.var_com_officer_search,font=("arial",11,"bold"),width=18,state='readonly')
+        combo_search_box['value']=('Select Option','officer_id')
         combo_search_box.current(0)
         combo_search_box.grid(row=0,column=1,sticky=W,padx=5)
 
         # self.var_search=StringVar()
-        search_txt=ttk.Entry(search_frame,width=18,font=("arial",11,"bold"))
+        search_txt=ttk.Entry(search_frame,textvariable=self.var_officer_search,width=18,font=("arial",11,"bold"))
         search_txt.grid(row=0,column=2,sticky=W,padx=5)
 
         #search button
-        btn_search=Button(search_frame,text='Search',font=("arial",13,"bold"),width=14,bg='blue')
+        btn_search=Button(search_frame,command=self.search_officer_data,text='Search',font=("arial",13,"bold"),width=14,bg='blue')
         btn_search.grid(row=0,column=3,padx=3,pady=5)
 
         #all button
-        btn_all=Button(search_frame,text='Show All',font=("arial",13,"bold"),width=14,bg='blue')
+        btn_all=Button(search_frame,command=self.fetch_officer_data,text='Show All',font=("arial",13,"bold"),width=14,bg='blue')
         btn_all.grid(row=0,column=4,padx=3,pady=5)
 
         crimeagency=Label(search_frame,font=("arial",30,"bold"),text="NATIONAL CRIME AGENCY",bg='white',fg='crimson')
@@ -889,6 +933,38 @@ class Criminal:
         self.officer_table.column("7",width=100)
 
         self.officer_table.pack(fill=BOTH,expand=1)
+        self.fetch_officer_data()
+
+    def fetch_officer_data(self):
+        conn=mysql.connector.connect(host='localhost', username='root',password='password', database='crime_project')
+        my_cursor=conn.cursor()
+        my_cursor.execute('select * from policeofficers')
+        data=my_cursor.fetchall()
+        if len(data)!=0:
+            self.officer_table.delete(*self.officer_table.get_children())
+            for i in data:
+                self.officer_table.insert('',END,values=i)
+            conn.commit()
+        conn.close()
+
+
+    def search_officer_data(self): 
+        if self.var_com_officer_search.get()=="":
+            messagebox.showerror('Error','All fields are required') 
+        else:
+            try:
+                conn=mysql.connector.connect(host='localhost', username='root',password='password', database='crime_project')
+                my_cursor=conn.cursor()
+                my_cursor.execute('select * from policeofficers where '+str(self.var_com_officer_search.get())+" LIKE'%"+str(self.var_officer_search.get()+"%'"))
+                rows=my_cursor.fetchall()
+                if len(rows)!=0:
+                    self.officer_table.delete(*self.officer_table.get_children())
+                    for i in rows:
+                        self.officer_table.insert('',END,values=i)
+                conn.commit()
+                conn.close()
+            except Exception as es:
+                messagebox.showerror('error',f'Due to{str(es)}')
 
 
 if __name__=="__main__":

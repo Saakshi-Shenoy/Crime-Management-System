@@ -12,7 +12,7 @@ class Criminal:
         self.root.geometry('1530x790+0+0')
         self.root.title('CRIMINAL MANAGEMENT SYSTEM')
 
-
+        #criminal variables start
         self.var_com_criminal_search = StringVar()
         self.var_criminal_search = StringVar()
 
@@ -25,6 +25,7 @@ class Criminal:
         self.var_address=StringVar()
         self.var_criminal_status=StringVar()
         self.var_prison_id=StringVar()
+        #criminal variables end
         
         lbl_title=Label(self.root,text='CRIMINAL MANAGEMENT SYSTEM SOFTWARE',font=('times new roman',35,'bold'),bg='black',fg='gold')
         lbl_title.place(x=0,y=0,width=1530,height=70)

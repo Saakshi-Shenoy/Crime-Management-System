@@ -29,6 +29,8 @@ class Criminal:
         self.create_criminal_tab()
         self.create_case_tab()
         self.create_crimes_tab()
+        self.create_prisons_tab()
+        # self.create_officers_tab()
 
 
     def create_criminal_tab(self):
@@ -419,14 +421,14 @@ class Criminal:
         btn_clear=Button(button_frame,text='Clear',font=('arial',13,'bold'),width=14,bg='blue',fg='white')
         btn_clear.grid(row=0,column=3,padx=3,pady=5)
 
-         #Main_frame
+        #Main_frame
         Main_frame = Frame(crimes_tab, bd=2, relief=RIDGE, bg='white')
         Main_frame.place(x=10, y=280, width=1500, height=560)
         
-        down_frame=LabelFrame(Main_frame,bd=2,relief=RIDGE,text='Case Information Table',font=('times new roman',11,'bold'),fg='red',bg='white')
+        down_frame=LabelFrame(Main_frame,bd=2,relief=RIDGE,text='Crime Information Table',font=('times new roman',11,'bold'),fg='red',bg='white')
         down_frame.place(x=10,y=10,width=1480,height=270)
 
-        search_frame=LabelFrame(down_frame,bd=2,relief=RIDGE,text='Search Case Record',font=('times new roman',11,'bold'),fg='red',bg='white')
+        search_frame=LabelFrame(down_frame,bd=2,relief=RIDGE,text='Search Crime Record',font=('times new roman',11,'bold'),fg='red',bg='white')
         search_frame.place(x=0,y=0,width=1470,height=60)
 
         search_by=Label(search_frame,font=("arial",11,"bold"),text="Search By:",bg="red",fg="white")
@@ -490,6 +492,80 @@ class Criminal:
         self.criminal_table.column("8",width=100)
 
         self.criminal_table.pack(fill=BOTH,expand=1)
+
+    def create_prisons_tab(self):
+        prisons_tab = ttk.Frame(self.notebook)
+        self.notebook.add(prisons_tab, text="Prisons")
+
+        ttk.Label(prisons_tab, text="").pack()
+        #Main_frame
+        Main_frame = Frame(prisons_tab, bd=2, relief=RIDGE, bg='white')
+        Main_frame.place(x=10, y=20, width=1500, height=560)
+        
+        down_frame=LabelFrame(Main_frame,bd=2,relief=RIDGE,text='Prison Information Table',font=('times new roman',11,'bold'),fg='red',bg='white')
+        down_frame.place(x=10,y=10,width=1480,height=270)
+
+        search_frame=LabelFrame(down_frame,bd=2,relief=RIDGE,text='Search Prison',font=('times new roman',11,'bold'),fg='red',bg='white')
+        search_frame.place(x=0,y=0,width=1470,height=60)
+
+        search_by=Label(search_frame,font=("arial",11,"bold"),text="Search By:",bg="red",fg="white")
+        search_by.grid(row=0,column=0,sticky=W,padx=5)
+
+        # self.var_com_search=StringVar()
+        combo_search_box=ttk.Combobox(search_frame,font=("arial",11,"bold"),width=18,state='readonly')
+        combo_search_box['value']=('Select Option','Case_id','Criminal_no')
+        combo_search_box.current(0)
+        combo_search_box.grid(row=0,column=1,sticky=W,padx=5)
+
+        # self.var_search=StringVar()
+        search_txt=ttk.Entry(search_frame,width=18,font=("arial",11,"bold"))
+        search_txt.grid(row=0,column=2,sticky=W,padx=5)
+
+        #search button
+        btn_search=Button(search_frame,text='Search',font=("arial",13,"bold"),width=14,bg='blue')
+        btn_search.grid(row=0,column=3,padx=3,pady=5)
+
+        #all button
+        btn_all=Button(search_frame,text='Show All',font=("arial",13,"bold"),width=14,bg='blue')
+        btn_all.grid(row=0,column=4,padx=3,pady=5)
+
+        crimeagency=Label(search_frame,font=("arial",30,"bold"),text="NATIONAL CRIME AGENCY",bg='white',fg='crimson')
+        crimeagency.grid(row=0,column=5,sticky=W,padx=50,pady=0)
+
+        # Table Frame
+        table_frame=Frame(down_frame,bd=2,relief=RIDGE)
+        table_frame.place(x=0,y=60,width=1470,height=170)
+
+        # Scroll bar
+        scroll_x=ttk.Scrollbar(table_frame,orient=HORIZONTAL)
+        scroll_y=ttk.Scrollbar(table_frame,orient=VERTICAL)
+
+        self.criminal_table=ttk.Treeview(table_frame,column=("1","2","3","4","5","6","7","8","9","10","11","12","13","14"),xscrollcommand=scroll_x.set,yscrollcommand=scroll_y.set)
+
+        scroll_x.pack(side=BOTTOM,fill=X)
+        scroll_y.pack(side=RIGHT,fill=Y)
+
+        scroll_x.config(command=self.criminal_table.xview)
+        scroll_y.config(command=self.criminal_table.yview)
+
+        self.criminal_table.heading("1",text="prison_id")
+        self.criminal_table.heading("2",text="prison_name")
+        self.criminal_table.heading("3",text="location")
+        self.criminal_table.heading("4",text="capacity")
+        self.criminal_table.heading("5",text="warden")
+        self.criminal_table.heading("6",text="number_of_inmates")
+
+        self.criminal_table['show']='headings'
+
+        self.criminal_table.column("1",width=100)
+        self.criminal_table.column("2",width=100)
+        self.criminal_table.column("3",width=100)
+        self.criminal_table.column("4",width=100)
+        self.criminal_table.column("5",width=100)
+        self.criminal_table.column("6",width=150)
+
+        self.criminal_table.pack(fill=BOTH,expand=1)
+
 
 
 if __name__=="__main__":

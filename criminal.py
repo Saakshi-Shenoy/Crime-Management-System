@@ -35,10 +35,23 @@ class Criminal:
         self.var_crime_name=StringVar()
         self.var_crime_description=StringVar()
         self.var_severity_level=StringVar()
-        self.var_date_commited=StringVar()
+        self.var_date_committed=StringVar()
         self.var_crime_location=StringVar()
         self.var_incharge_officer=IntVar()
         #crime variables end
+
+        #case variables start
+        self.var_com_case_search = StringVar()
+        self.var_case_search = StringVar()
+
+        self.var_case_id=StringVar()
+        self.var_start_date=StringVar()
+        self.var_end_date=StringVar()
+        self.var_judge=StringVar()
+        self.var_verdict=StringVar()
+        # self.var_criminal_id=StringVar()
+        # self.var_crime_id=StringVar()
+        #case variables end
 
         #prison variables start
         self.var_com_prison_search = StringVar()
@@ -248,7 +261,6 @@ class Criminal:
             conn.commit()
         conn.close()
 
-
     def add_criminal_data(self):
         if self.var_criminal_id.get()=="":
             messagebox.showerror('Error','All fields are required')
@@ -357,57 +369,57 @@ class Criminal:
         caseid=Label(upper_frame,text='Case_ID:',font=('arial',11,'bold'),bg='white')
         caseid.grid(row=0,column=0,padx=2,sticky=W)
 
-        caseentry=ttk.Entry(upper_frame, width=22,font=('arial',11,'bold'))
+        caseentry=ttk.Entry(upper_frame,textvariable=self.var_case_id,width=22,font=('arial',11,'bold'))
         caseentry.grid(row=0,column=1,padx=2,sticky=W)
 
         startDate=Label(upper_frame,font=('arial',12,'bold'),text="Start_date:",bg='white')
         startDate.grid(row=0,column=2,sticky=W,padx=2,pady=7)
 
-        txt_sDate=ttk.Entry(upper_frame,width=22,font=('arial',11,'bold'))
+        txt_sDate=ttk.Entry(upper_frame,textvariable = self.var_start_date,width=22,font=('arial',11,'bold'))
         txt_sDate.grid(row=0,column=3,sticky=W,padx=2,pady=7)
 
         #End date
         endDate=Label(upper_frame,font=('arial',12,'bold'),text="End_date:",bg='white')
         endDate.grid(row=0,column=4,sticky=W,padx=2,pady=7)
 
-        txt_eDate=ttk.Entry(upper_frame,width=22,font=('arial',11,'bold'))
+        txt_eDate=ttk.Entry(upper_frame,textvariable=self.var_end_date,width=22,font=('arial',11,'bold'))
         txt_eDate.grid(row=0,column=5,sticky=W,padx=2,pady=7)
 
         #Judge
         judge=Label(upper_frame,font=('arial',12,'bold'),text="Judge:",bg='white')
         judge.grid(row=1,column=0,sticky=W,padx=2,pady=7)
 
-        txt_judge=ttk.Entry(upper_frame,width=22,font=('arial',11,'bold'))
+        txt_judge=ttk.Entry(upper_frame,textvariable=self.var_judge,width=22,font=('arial',11,'bold'))
         txt_judge.grid(row=1,column=1,sticky=W,padx=2,pady=7)
 
         # Verdict
         verdict=Label(upper_frame,font=('arial',12,'bold'),text="Verdict:",bg='white')
         verdict.grid(row=1,column=2,sticky=W,padx=2,pady=7)
 
-        txt_verdict=ttk.Entry(upper_frame,width=22,font=('arial',11,'bold'))
+        txt_verdict=ttk.Entry(upper_frame,textvariable=self.var_verdict,width=22,font=('arial',11,'bold'))
         txt_verdict.grid(row=1,column=3,sticky=W,padx=2,pady=7)
 
         #criminal id
         lbl_criminalID=Label(upper_frame,font=('arial',12,'bold'),text="Criminal_ID:",bg='white')
         lbl_criminalID.grid(row=1,column=4,sticky=W,padx=2,pady=7)
 
-        txt_criminalID=ttk.Entry(upper_frame,width=22,font=('arial',11,'bold'))
+        txt_criminalID=ttk.Entry(upper_frame,textvariable=self.var_criminal_id,width=22,font=('arial',11,'bold'))
         txt_criminalID.grid(row=1,column=5,sticky=W,padx=2,pady=7)
 
         #crime-id
         crimeid=Label(upper_frame,font=('arial',12,'bold'),text="Crime_ID:",bg='white')
         crimeid.grid(row=2,column=0,sticky=W,padx=2,pady=7)
 
-        txt_crimeid=ttk.Entry(upper_frame, width=22,font=('arial',11,'bold'))
+        txt_crimeid=ttk.Entry(upper_frame,textvariable=self.var_crime_id, width=22,font=('arial',11,'bold'))
         txt_crimeid.grid(row=2,column=1,sticky=W,padx=2,pady=7)
 
         # Buttons for Information
         button_frame = Frame(upper_frame, bd=2, relief=RIDGE, bg='white')
         button_frame.place(x=5, y=200, width=620, height=45)
-        btn_add = Button(button_frame, text='Save', font=('arial', 13, 'bold'), width=14, bg='blue', fg='white')
+        btn_add = Button(button_frame,command=self.add_case_data, text='Save', font=('arial', 13, 'bold'), width=14, bg='blue', fg='white')
         btn_add.grid(row=0, column=0, padx=3, pady=5)
         
-        btn_update=Button(button_frame,text='Update',font=('arial',13,'bold'),width=14,bg='blue',fg='white')
+        btn_update=Button(button_frame,command=self.update_case_data,text='Update',font=('arial',13,'bold'),width=14,bg='blue',fg='white')
         btn_update.grid(row=0,column=1,padx=3,pady=5)
 
         #Delete Button
@@ -415,7 +427,7 @@ class Criminal:
         btn_delete.grid(row=0,column=2,padx=3,pady=5)
 
         #Clear Button
-        btn_clear=Button(button_frame,text='Clear',font=('arial',13,'bold'),width=14,bg='blue',fg='white')
+        btn_clear=Button(button_frame,command=self.clear_case_data,text='Clear',font=('arial',13,'bold'),width=14,bg='blue',fg='white')
         btn_clear.grid(row=0,column=3,padx=3,pady=5)
 
          #Main_frame
@@ -432,21 +444,21 @@ class Criminal:
         search_by.grid(row=0,column=0,sticky=W,padx=5)
 
         # self.var_com_search=StringVar()
-        combo_search_box=ttk.Combobox(search_frame,font=("arial",11,"bold"),width=18,state='readonly')
-        combo_search_box['value']=('Select Option','Case_id','Criminal_no')
+        combo_search_box=ttk.Combobox(search_frame,textvariable=self.var_com_case_search,font=("arial",11,"bold"),width=18,state='readonly')
+        combo_search_box['value']=('Select Option','case_id','criminal_id','crime_id','judge')
         combo_search_box.current(0)
         combo_search_box.grid(row=0,column=1,sticky=W,padx=5)
 
         # self.var_search=StringVar()
-        search_txt=ttk.Entry(search_frame,width=18,font=("arial",11,"bold"))
+        search_txt=ttk.Entry(search_frame,textvariable=self.var_case_search,width=18,font=("arial",11,"bold"))
         search_txt.grid(row=0,column=2,sticky=W,padx=5)
 
         #search button
-        btn_search=Button(search_frame,text='Search',font=("arial",13,"bold"),width=14,bg='blue')
+        btn_search=Button(search_frame,command=self.search_case_data,text='Search',font=("arial",13,"bold"),width=14,bg='blue')
         btn_search.grid(row=0,column=3,padx=3,pady=5)
 
         #all button
-        btn_all=Button(search_frame,text='Show All',font=("arial",13,"bold"),width=14,bg='blue')
+        btn_all=Button(search_frame,command=self.fetch_case_data,text='Show All',font=("arial",13,"bold"),width=14,bg='blue')
         btn_all.grid(row=0,column=4,padx=3,pady=5)
 
         crimeagency=Label(search_frame,font=("arial",30,"bold"),text="NATIONAL CRIME AGENCY",bg='white',fg='crimson')
@@ -487,6 +499,106 @@ class Criminal:
         self.case_table.column("7",width=100)
 
         self.case_table.pack(fill=BOTH,expand=1)
+        self.case_table.bind("<ButtonRelease>", self.get_case_cursor)
+        self.fetch_case_data()
+
+    def fetch_case_data(self):
+        conn=mysql.connector.connect(host='localhost', username='root',password='password', database='crime_project')
+        my_cursor=conn.cursor()
+        my_cursor.execute('select * from cases')
+        data=my_cursor.fetchall()
+        if len(data)!=0:
+            self.case_table.delete(*self.case_table.get_children())
+            for i in data:
+                self.case_table.insert('',END,values=i)
+            conn.commit()
+        conn.close()
+
+    def add_case_data(self):
+        if self.var_case_id.get()=="":
+            messagebox.showerror('Error','All fields are required')
+        else:
+            try:
+                conn=mysql.connector.connect(host='localhost', username='root',password='password', database='crime_project')
+                my_cursor=conn.cursor()
+                my_cursor.execute('insert into cases values(%s,%s,%s,%s,%s,%s,%s)',(
+                    self.var_case_id.get(),
+                    self.var_start_date.get(),
+                    self.var_end_date.get(),
+                    self.var_judge.get(),
+                    self.var_verdict.get(),
+                    self.var_criminal_id.get(),
+                    self.var_crime_id.get()))
+                conn.commit()
+                self.fetch_case_data()
+                self.clear_case_data()
+                conn.close()
+                messagebox.showinfo('successful', 'Criminal record has been added')
+            except Exception as es:
+                messagebox.showerror('error',f'Due to{str(es)}')
+
+    def clear_case_data(self):
+        self.var_case_id.set("")
+        self.var_start_date.set("")
+        self.var_end_date.set("")
+        self.var_judge.set("")
+        self.var_verdict.set("")
+        self.var_criminal_id.set("")
+        self.var_crime_id.set("")
+
+    def get_case_cursor(self,event=""):
+        cursor_row=self.case_table.focus()
+        content=self.case_table.item(cursor_row)
+        data=content['values']
+
+        self.var_case_id.set(data[0])
+        self.var_start_date.set(data[1])
+        self.var_end_date.set(data[2])
+        self.var_judge.set(data[3])
+        self.var_verdict.set(data[4])
+        self.var_criminal_id.set(data[5])
+        self.var_crime_id.set(data[6])
+
+    def update_case_data(self):
+        if self.var_case_id.get()=="":
+            messagebox.showerror('Error','All fields are required')
+        else:
+            try:
+                conn=mysql.connector.connect(host='localhost', username='root',password='password', database='crime_project')
+                my_cursor=conn.cursor()
+                my_cursor.execute('update cases set start_date=%s, end_date=%s, judge=%s, verdict=%s, criminal_id=%s, crime_id=%s where case_id=%s',(
+                    self.var_start_date.get(),
+                    self.var_end_date.get(),
+                    self.var_judge.get(),
+                    self.var_verdict.get(),
+                    self.var_criminal_id.get(),
+                    self.var_crime_id.get(),
+                    self.var_case_id.get()))
+                conn.commit()
+                self.fetch_case_data()
+                self.clear_case_data()
+                conn.close()
+                messagebox.showinfo('successful', 'Case record has been added')
+            except Exception as es:
+                messagebox.showerror('error',f'Due to{str(es)}')
+
+    def search_case_data(self): 
+        if self.var_com_case_search.get()=="":
+            messagebox.showerror('Error','All fields are required') 
+        else:
+            try:
+                conn=mysql.connector.connect(host='localhost', username='root',password='password', database='crime_project')
+                my_cursor=conn.cursor()
+                my_cursor.execute('select * from cases where '+str(self.var_com_case_search.get())+" LIKE'%"+str(self.var_case_search.get()+"%'"))
+                rows=my_cursor.fetchall()
+                if len(rows)!=0:
+                    self.case_table.delete(*self.case_table.get_children())
+                    for i in rows:
+                        self.case_table.insert('',END,values=i)
+                conn.commit()
+                conn.close()
+            except Exception as es:
+                messagebox.showerror('error',f'Due to{str(es)}')
 
 
     
@@ -530,7 +642,7 @@ class Criminal:
         datecom=Label(upper_frame,font=('arial',12,'bold'),text="Date_Committed:",bg='white')
         datecom.grid(row=1,column=2,sticky=W,padx=2,pady=7)
 
-        txt_datecom=ttk.Entry(upper_frame,textvariable=self.var_date_commited,width=22,font=('arial',11,'bold'))
+        txt_datecom=ttk.Entry(upper_frame,textvariable=self.var_date_committed,width=22,font=('arial',11,'bold'))
         txt_datecom.grid(row=1,column=3,sticky=W,padx=2,pady=7)
 
         #Location
@@ -586,7 +698,7 @@ class Criminal:
 
         # self.var_com_search=StringVar()
         combo_search_box=ttk.Combobox(search_frame,textvariable=self.var_com_crime_search,font=("arial",11,"bold"),width=18,state='readonly')
-        combo_search_box['value']=('Select Option','Case_id','Criminal_no')
+        combo_search_box['value']=('Select Option','crime_id','criminal_id','Severity_Level','crime_name','incharge_officer')
         combo_search_box.current(0)
         combo_search_box.grid(row=0,column=1,sticky=W,padx=5)
 
@@ -645,7 +757,6 @@ class Criminal:
         self.crime_table.bind("<ButtonRelease>", self.get_crime_cursor)
         self.fetch_crime_data()
 
-
     def add_crime_data(self):
         if self.var_crime_id.get()=="":
             messagebox.showerror('Error','All fields are required')
@@ -658,7 +769,7 @@ class Criminal:
                     self.var_crime_name.get(),
                     self.var_crime_description.get(),
                     self.var_severity_level.get(),
-                    self.var_date_commited.get(),
+                    self.var_date_committed.get(),
                     self.var_crime_location.get(),
                     self.var_criminal_id.get(),
 		            self.var_incharge_officer.get()))
@@ -705,7 +816,7 @@ class Criminal:
         self.var_crime_name.set(""),
         self.var_crime_description.set(""),
         self.var_severity_level.set(""),
-        self.var_date_commited.set(""),
+        self.var_date_committed.set(""),
         self.var_crime_location.set(""),
         self.var_criminal_id.set(""),
         self.var_incharge_officer.set("")
@@ -719,7 +830,7 @@ class Criminal:
         self.var_crime_name.set(data[1]),
         self.var_crime_description.set(data[2]),
         self.var_severity_level.set(data[3]),
-        self.var_date_commited.set(data[4]),
+        self.var_date_committed.set(data[4]),
         self.var_crime_location.set(data[5]),
         self.var_criminal_id.set(data[6]),
         self.var_incharge_officer.set(data[7])
@@ -731,14 +842,15 @@ class Criminal:
             try:
                 conn=mysql.connector.connect(host='localhost', username='root',password='password', database='crime_project')
                 my_cursor=conn.cursor()
-                my_cursor.execute('update crimes set crime_name=%s, crime_description=%s, Severity_Level=%s, Date_Commited=%s, location=%s, criminal_id=%s, incharge_officer=%s where crime_id=%s',(
+                my_cursor.execute('update crimes set crime_name=%s, crime_description=%s, Severity_Level=%s, Date_Committed=%s, location=%s, criminal_id=%s, incharge_officer=%s where crime_id=%s',(
                     self.var_crime_name.get(),
                     self.var_crime_description.get(),
                     self.var_severity_level.get(),
-                    self.var_date_commited.get(),
+                    self.var_date_committed.get(),
                     self.var_crime_location.get(),
                     self.var_criminal_id.get(),
-		            self.var_incharge_officer.get()))
+		            self.var_incharge_officer.get(),
+                    self.var_crime_id.get()))
                 conn.commit()
                 self.fetch_crime_data()
                 self.clear_crime_data()
@@ -748,10 +860,7 @@ class Criminal:
                 messagebox.showerror('error',f'Due to{str(es)}')
 
 
-
-
     
-
     def create_prisons_tab(self):
         prisons_tab = ttk.Frame(self.notebook)
         self.notebook.add(prisons_tab, text="Prisons")
@@ -826,7 +935,6 @@ class Criminal:
         self.prison_table.pack(fill=BOTH,expand=1)
         self.fetch_prison_data()
 
-
     def search_prison_data(self): 
         if self.var_com_prison_search.get()=="":
             messagebox.showerror('Error','All fields are required') 
@@ -856,7 +964,6 @@ class Criminal:
                 self.prison_table.insert('',END,values=i)
             conn.commit()
         conn.close()
-
 
 
     def create_officers_tab(self):
@@ -946,7 +1053,6 @@ class Criminal:
                 self.officer_table.insert('',END,values=i)
             conn.commit()
         conn.close()
-
 
     def search_officer_data(self): 
         if self.var_com_officer_search.get()=="":

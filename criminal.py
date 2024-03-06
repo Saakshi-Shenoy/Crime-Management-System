@@ -166,7 +166,7 @@ class Criminal:
         btn_update.grid(row=0,column=1,padx=3,pady=5)
 
         #Delete Button
-        btn_delete=Button(button_frame,text='Delete',font=('arial',13,'bold'),width=14,bg='blue',fg='white')
+        btn_delete=Button(button_frame,command=self.delete_criminal_data, text='Delete',font=('arial',13,'bold'),width=14,bg='blue',fg='white')
         btn_delete.grid(row=0,column=2,padx=3,pady=5)
 
         #Clear Button
@@ -354,6 +354,29 @@ class Criminal:
                 conn.close()
             except Exception as es:
                 messagebox.showerror('error',f'Due to{str(es)}')
+    
+    def delete_criminal_data(self):
+        if self.var_criminal_id.get()=="":
+            messagebox.showerror('Error','All fields are required')
+        else:
+            try:
+                delete=messagebox.askyesno('Delete', "Are you sure you want to Delete this record?")
+                if delete>0:
+                    conn=mysql.connector.connect(host='localhost', username='root',password='password', database='crime_project')
+                    my_cursor=conn.cursor() 
+                    sql="DELETE FROM criminals WHERE Criminal_id= %s "
+                    value=(self.var_criminal_id.get(),)
+                    my_cursor.execute(sql,value)
+                else:
+                    if not delete:
+                        return
+                conn.commit()
+                self.fetch_criminal_data()
+                self.clear_criminal_data()
+                conn.close()
+                messagebox.showinfo('successful', 'Criminal record has been deleted')
+            except Exception as es:
+                messagebox.showerror('error',f'Due to {str(es)}')
 
 
     def create_case_tab(self):
@@ -423,7 +446,7 @@ class Criminal:
         btn_update.grid(row=0,column=1,padx=3,pady=5)
 
         #Delete Button
-        btn_delete=Button(button_frame,text='Delete',font=('arial',13,'bold'),width=14,bg='blue',fg='white')
+        btn_delete=Button(button_frame,command=self.delete_case_data,text='Delete',font=('arial',13,'bold'),width=14,bg='blue',fg='white')
         btn_delete.grid(row=0,column=2,padx=3,pady=5)
 
         #Clear Button
@@ -600,6 +623,28 @@ class Criminal:
             except Exception as es:
                 messagebox.showerror('error',f'Due to{str(es)}')
 
+    def delete_case_data(self):
+        if self.var_case_id.get()=="":
+            messagebox.showerror('Error','All fields are required')
+        else:
+            try:
+                delete=messagebox.askyesno('Delete', "Are you sure you want to Delete this record?")
+                if delete>0:
+                    conn=mysql.connector.connect(host='localhost', username='root',password='password', database='crime_project')
+                    my_cursor=conn.cursor() 
+                    sql="DELETE FROM cases WHERE case_id= %s "
+                    value=(self.var_case_id.get(),)
+                    my_cursor.execute(sql,value)
+                else:
+                    if not delete:
+                        return
+                conn.commit()
+                self.fetch_case_data()
+                self.clear_case_data()
+                conn.close()
+                messagebox.showinfo('successful', 'Criminal record has been deleted')
+            except Exception as es:
+                messagebox.showerror('error',f'Due to {str(es)}')
 
     
     def create_crimes_tab(self):
@@ -676,7 +721,7 @@ class Criminal:
         btn_update.grid(row=0,column=1,padx=3,pady=5)
 
         #Delete Button
-        btn_delete=Button(button_frame,text='Delete',font=('arial',13,'bold'),width=14,bg='blue',fg='white')
+        btn_delete=Button(button_frame,command=self.delete_crime_data,text='Delete',font=('arial',13,'bold'),width=14,bg='blue',fg='white')
         btn_delete.grid(row=0,column=2,padx=3,pady=5)
 
         #Clear Button
@@ -859,7 +904,28 @@ class Criminal:
             except Exception as es:
                 messagebox.showerror('error',f'Due to{str(es)}')
 
-
+    def delete_crime_data(self):
+        if self.var_crime_id.get()=="":
+            messagebox.showerror('Error','All fields are required')
+        else:
+            try:
+                delete=messagebox.askyesno('Delete', "Are you sure you want to Delete this record?")
+                if delete>0:
+                    conn=mysql.connector.connect(host='localhost', username='root',password='password', database='crime_project')
+                    my_cursor=conn.cursor() 
+                    sql="DELETE FROM crimes WHERE crime_id= %s "
+                    value=(self.var_crime_id.get(),)
+                    my_cursor.execute(sql,value)
+                else:
+                    if not delete:
+                        return
+                conn.commit()
+                self.fetch_crime_data()
+                self.clear_crime_data()
+                conn.close()
+                messagebox.showinfo('successful', 'Crime record has been deleted')
+            except Exception as es:
+                messagebox.showerror('error',f'Due to {str(es)}')
     
     def create_prisons_tab(self):
         prisons_tab = ttk.Frame(self.notebook)

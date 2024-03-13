@@ -61,7 +61,7 @@ class Criminal:
         self.var_officer_search = StringVar()
         #officer variables end
     #    
-        lbl_title=Label(self.root,text='CRIMINAL MANAGEMENT SYSTEM SOFTWARE',font=('times new roman',35,'bold'),bg='black',fg='gold')
+        lbl_title=Label(self.root,text='CRIMINAL MANAGEMENT SYSTEM SOFTWARE',font=('verdana',35,'bold'),bg='black',fg='white')
         lbl_title.place(x=0,y=0,width=1530,height=70)
 
         #ncr_logo
@@ -90,6 +90,67 @@ class Criminal:
         ttk.Label(criminal_tab, text="").pack()
 
         # Upper_frame (Criminal Information)
+        upper_frame = LabelFrame(criminal_tab, bd=2, relief=RIDGE, text='Criminal Information', font=('verdana', 11, 'bold'), fg='red', bg='white')
+        upper_frame.place(x=10, y=10, width=1500, height=560)
+
+        firstname=Label(upper_frame,text='First_Name:',font=('verdana',11),bg='white')
+        firstname.grid(row=0,column=0,padx=2,sticky=W)
+
+        caseentry=ttk.Entry(upper_frame, textvariable=self.var_first_name, width=22,font=('verdana', 11))
+        caseentry.grid(row=0,column=1,padx=2,sticky=W)
+
+        lastName=Label(upper_frame,font=('verdana', 11),text="Last_Name:",bg='white')
+        lastName.grid(row=0,column=2,sticky=W,padx=2,pady=7)
+
+        txt_lastName=ttk.Entry(upper_frame,textvariable=self.var_last_name,width=22,font=('verdana', 11))
+        txt_lastName.grid(row=0,column=3,sticky=W,padx=2,pady=7)
+
+        #DOB
+        lbl_dob=Label(upper_frame,font=('verdana', 11),text="DOB:",bg='white')
+        lbl_dob.grid(row=0,column=4,sticky=W,padx=2,pady=7)
+
+        txt_dob=ttk.Entry(upper_frame,textvariable=self.var_date_of_birth,width=22,font=('verdana', 11))
+        txt_dob.grid(row=0,column=5,sticky=W,padx=2,pady=7)
+
+        #Gender
+        lbl_gender=Label(upper_frame,font=('verdana', 11),text="Gender:",bg='white')
+        lbl_gender.grid(row=1,column=4,sticky=W,padx=2,pady=7)
+
+        txt_gender=ttk.Entry(upper_frame,textvariable=self.var_gender,width=22,font=('verdana', 11))
+        txt_gender.grid(row=1,column=5,sticky=W,padx=2,pady=7)
+
+        # Nationality
+        nationality=Label(upper_frame,font=('verdana', 11),text="Nationality:",bg='white')
+        nationality.grid(row=1,column=0,sticky=W,padx=2,pady=7)
+
+        txt_nationality=ttk.Entry(upper_frame,textvariable=self.var_nationality,width=22,font=('verdana', 11))
+        txt_nationality.grid(row=1,column=1,sticky=W,padx=2,pady=7)
+
+        #Address
+        lbl_address=Label(upper_frame,font=('verdana', 11),text="Address:",bg='white')
+        lbl_address.grid(row=1,column=2,sticky=W,padx=2,pady=7)
+
+        txt_address=ttk.Entry(upper_frame,textvariable=self.var_address,width=22,font=('verdana', 11))
+        txt_address.grid(row=1,column=3,sticky=W,padx=2,pady=7)
+
+        lbl_criminalID=Label(upper_frame,font=('verdana', 11),text="Criminal_ID:",bg='white')
+        lbl_criminalID.grid(row=2,column=0,sticky=W,padx=2,pady=7)
+
+        txt_criminalID=ttk.Entry(upper_frame,textvariable=self.var_criminal_id,width=22,font=('verdana', 11))
+        txt_criminalID.grid(row=2,column=1,sticky=W,padx=2,pady=7)
+
+        #Prison-id
+        lbl_prison_id=Label(upper_frame,font=('verdana', 11),text="Prison_ID:",bg='white')
+        lbl_prison_id.grid(row=2,column=2,sticky=W,padx=2,pady=7)
+
+        txt_prison_id=ttk.Entry(upper_frame, textvariable=self.var_prison_id,width=22,font=('verdana', 11))
+        txt_prison_id.grid(row=2,column=3,sticky=W,padx=2,pady=7)
+
+        #Status
+        lbl_status=Label(upper_frame,font=('verdana', 11),text="Criminal Status:",bg='white')
+        lbl_status.grid(row=3,column=0,sticky=W,padx=2,pady=7)
+
+        txt_status=ttk.Entry(upper_frame,textvariable=self.var_criminal_status,width=22,font=('verdana', 11))
         upper_frame = LabelFrame(criminal_tab, bd=2, relief=RIDGE, text='Criminal Information', font=('palatino', 11, 'bold'), fg='red', bg='white')
         upper_frame.place(x=10, y=10, width=1500, height=560)
 
@@ -157,6 +218,18 @@ class Criminal:
         # Buttons for Criminal Information
         button_frame = Frame(upper_frame, bd=2, relief=RIDGE, bg='white')
         button_frame.place(x=5, y=200, width=620, height=45)
+        btn_add = Button(button_frame,command=self.add_criminal_data, text='Save', font=('verdana', 11), width=14, bg='#0073e6', fg='white')
+        btn_add.grid(row=0, column=0, padx=3, pady=5)
+        
+        btn_update=Button(button_frame,command=self.update_criminal_data,text='Update',font=('verdana', 11),width=14,bg='#0073e6',fg='white')
+        btn_update.grid(row=0,column=1,padx=3,pady=5)
+
+        #Delete Button
+        btn_delete=Button(button_frame,command=self.delete_criminal_data, text='Delete',font=('verdana', 11),width=14,bg='#0073e6',fg='white')
+        btn_delete.grid(row=0,column=2,padx=3,pady=5)
+
+        #Clear Button
+        btn_clear=Button(button_frame,command=self.clear_criminal_data,text='Clear',font=('verdana', 11),width=14,bg='#0073e6',fg='white')
         btn_add = Button(button_frame,command=self.add_criminal_data, text='Save', font=('palatino', 13, 'bold'), width=14, bg='blue', fg='white')
         btn_add.grid(row=0, column=0, padx=3, pady=5)
         
@@ -176,6 +249,17 @@ class Criminal:
         Main_frame = Frame(criminal_tab, bd=2, relief=RIDGE, bg='white')
         Main_frame.place(x=10, y=280, width=1500, height=560)
         
+        down_frame=LabelFrame(Main_frame,bd=2,relief=RIDGE,text='Criminal Information Table',font=('verdana',11,'bold'),fg='red',bg='white')
+        down_frame.place(x=10,y=10,width=1480,height=270)
+
+        search_frame=LabelFrame(down_frame,bd=2,relief=RIDGE,text='Search Criminal Record',font=('verdana',11,'bold'),fg='red',bg='white')
+        search_frame.place(x=0,y=0,width=1470,height=60)
+
+        search_by=Label(search_frame,font=('verdana',11,'bold'),text="Search By:",bg="white",fg="red")
+        search_by.grid(row=0,column=0,sticky=W,padx=5)
+
+        # self.var_com_search=StringVar()
+        combo_search_box=ttk.Combobox(search_frame,textvariable=self.var_com_criminal_search,font=('verdana',11,'bold'),width=18,state='readonly')
         down_frame=LabelFrame(Main_frame,bd=2,relief=RIDGE,text='Criminal Information Table',font=('palatino',11,'bold'),fg='red',bg='white')
         down_frame.place(x=10,y=10,width=1480,height=270)
 
@@ -192,6 +276,19 @@ class Criminal:
         combo_search_box.grid(row=0,column=1,sticky=W,padx=5)
 
         # self.var_search=StringVar()
+        search_txt=ttk.Entry(search_frame,textvariable=self.var_criminal_search,width=18,font=('verdana',11,'bold'))
+        search_txt.grid(row=0,column=2,sticky=W,padx=5)
+
+        #search button
+        btn_search=Button(search_frame,command=self.search_criminal_data,text='Search',font=('verdana',11),width=14,bg='#0073e6',fg="white")
+        btn_search.grid(row=0,column=3,padx=3,pady=5)
+
+        #all button
+        btn_all=Button(search_frame,command = self.fetch_criminal_data,text='Show All',font=('verdana',11),width=14,bg='#0073e6',fg="white")
+        btn_all.grid(row=0,column=4,padx=3,pady=5)
+
+        # crimeagency=Label(search_frame,font=("arial",30,"bold"),text="NATIONAL CRIME AGENCY",bg='white',fg='crimson')
+        # crimeagency.grid(row=0,column=5,sticky=W,padx=50,pady=0)
         search_txt=ttk.Entry(search_frame,textvariable=self.var_criminal_search,width=18,font=("palatino",11,"bold"))
         search_txt.grid(row=0,column=2,sticky=W,padx=5)
 
@@ -385,6 +482,54 @@ class Criminal:
         ttk.Label(case_tab, text="").pack()
 
         # Upper_frame (Criminal Information)
+        upper_frame = LabelFrame(case_tab, bd=2, relief=RIDGE, text='Case Related Information', font=('verdana', 11, 'bold'), fg='red', bg='white')
+        upper_frame.place(x=10, y=10, width=1500, height=560)
+
+        caseid=Label(upper_frame,text='Case_ID:',font=('verdana', 11),bg='white')
+        caseid.grid(row=0,column=0,padx=2,sticky=W)
+
+        caseentry=ttk.Entry(upper_frame,textvariable=self.var_case_id,width=22,font=('verdana', 11))
+        caseentry.grid(row=0,column=1,padx=2,sticky=W)
+
+        startDate=Label(upper_frame,font=('verdana', 11),text="Start_date:",bg='white')
+        startDate.grid(row=0,column=2,sticky=W,padx=2,pady=7)
+
+        txt_sDate=ttk.Entry(upper_frame,textvariable = self.var_start_date,width=22,font=('verdana', 11))
+        txt_sDate.grid(row=0,column=3,sticky=W,padx=2,pady=7)
+
+        #End date
+        endDate=Label(upper_frame,font=('verdana', 11),text="End_date:",bg='white')
+        endDate.grid(row=0,column=4,sticky=W,padx=2,pady=7)
+
+        txt_eDate=ttk.Entry(upper_frame,textvariable=self.var_end_date,width=22,font=('verdana', 11))
+        txt_eDate.grid(row=0,column=5,sticky=W,padx=2,pady=7)
+
+        #Judge
+        judge=Label(upper_frame,font=('verdana', 11),text="Judge:",bg='white')
+        judge.grid(row=1,column=0,sticky=W,padx=2,pady=7)
+
+        txt_judge=ttk.Entry(upper_frame,textvariable=self.var_judge,width=22,font=('verdana', 11))
+        txt_judge.grid(row=1,column=1,sticky=W,padx=2,pady=7)
+
+        # Verdict
+        verdict=Label(upper_frame,font=('verdana', 11),text="Verdict:",bg='white')
+        verdict.grid(row=1,column=2,sticky=W,padx=2,pady=7)
+
+        txt_verdict=ttk.Entry(upper_frame,textvariable=self.var_verdict,width=22,font=('verdana', 11))
+        txt_verdict.grid(row=1,column=3,sticky=W,padx=2,pady=7)
+
+        #criminal id
+        lbl_criminalID=Label(upper_frame,font=('verdana', 11),text="Criminal_ID:",bg='white')
+        lbl_criminalID.grid(row=1,column=4,sticky=W,padx=2,pady=7)
+
+        txt_criminalID=ttk.Entry(upper_frame,textvariable=self.var_criminal_id,width=22,font=('verdana', 11))
+        txt_criminalID.grid(row=1,column=5,sticky=W,padx=2,pady=7)
+
+        #crime-id
+        crimeid=Label(upper_frame,font=('verdana', 11),text="Crime_ID:",bg='white')
+        crimeid.grid(row=2,column=0,sticky=W,padx=2,pady=7)
+
+        txt_crimeid=ttk.Entry(upper_frame,textvariable=self.var_crime_id, width=22,font=('verdana', 11))
         upper_frame = LabelFrame(case_tab, bd=2, relief=RIDGE, text='Case Related Information', font=('palatino', 11, 'bold'), fg='red', bg='white')
         upper_frame.place(x=10, y=10, width=1500, height=560)
 
@@ -438,6 +583,18 @@ class Criminal:
         # Buttons for Information
         button_frame = Frame(upper_frame, bd=2, relief=RIDGE, bg='white')
         button_frame.place(x=5, y=200, width=620, height=45)
+        btn_add = Button(button_frame,command=self.add_case_data, text='Save', font=('verdana', 11), width=14, bg='#0073e6', fg='white')
+        btn_add.grid(row=0, column=0, padx=3, pady=5)
+        
+        btn_update=Button(button_frame,command=self.update_case_data,text='Update',font=('verdana', 11),width=14,bg='#0073e6',fg='white')
+        btn_update.grid(row=0,column=1,padx=3,pady=5)
+
+        #Delete Button
+        btn_delete=Button(button_frame,command=self.delete_case_data,text='Delete',font=('verdana', 11),width=14,bg='#0073e6',fg='white')
+        btn_delete.grid(row=0,column=2,padx=3,pady=5)
+
+        #Clear Button
+        btn_clear=Button(button_frame,command=self.clear_case_data,text='Clear',font=('verdana', 11),width=14,bg='#0073e6',fg='white')
         btn_add = Button(button_frame,command=self.add_case_data, text='Save', font=('palatino', 13, 'bold'), width=14, bg='blue', fg='white')
         btn_add.grid(row=0, column=0, padx=3, pady=5)
         
@@ -457,6 +614,17 @@ class Criminal:
         Main_frame = Frame(case_tab, bd=2, relief=RIDGE, bg='white')
         Main_frame.place(x=10, y=280, width=1500, height=560)
         
+        down_frame=LabelFrame(Main_frame,bd=2,relief=RIDGE,text='Case Information Table',font=('verdana',11,'bold'),fg='red',bg='white')
+        down_frame.place(x=10,y=10,width=1480,height=270)
+
+        search_frame=LabelFrame(down_frame,bd=2,relief=RIDGE,text='Search Case Record',font=('verdana',11,'bold'),fg='red',bg='white')
+        search_frame.place(x=0,y=0,width=1470,height=60)
+
+        search_by=Label(search_frame,font=('verdana',11,'bold'),text="Search By:",bg="white",fg="red")
+        search_by.grid(row=0,column=0,sticky=W,padx=5)
+
+        # self.var_com_search=StringVar()
+        combo_search_box=ttk.Combobox(search_frame,textvariable=self.var_com_case_search,font=('verdana',11,'bold'),width=18,state='readonly')
         down_frame=LabelFrame(Main_frame,bd=2,relief=RIDGE,text='Case Information Table',font=('palatino',11,'bold'),fg='red',bg='white')
         down_frame.place(x=10,y=10,width=1480,height=270)
 
@@ -473,6 +641,19 @@ class Criminal:
         combo_search_box.grid(row=0,column=1,sticky=W,padx=5)
 
         # self.var_search=StringVar()
+        search_txt=ttk.Entry(search_frame,textvariable=self.var_case_search,width=18,font=('verdana',11,'bold'))
+        search_txt.grid(row=0,column=2,sticky=W,padx=5)
+
+        #search button
+        btn_search=Button(search_frame,command=self.search_case_data,text='Search',font=('verdana',11),width=14,bg='#0073e6',fg="white")
+        btn_search.grid(row=0,column=3,padx=3,pady=5)
+
+        #all button
+        btn_all=Button(search_frame,command=self.fetch_case_data,text='Show All',font=('verdana',11),width=14,bg='#0073e6',fg="white")
+        btn_all.grid(row=0,column=4,padx=3,pady=5)
+
+        # crimeagency=Label(search_frame,font=("arial",30,"bold"),text="NATIONAL CRIME AGENCY",bg='white',fg='crimson')
+        # crimeagency.grid(row=0,column=5,sticky=W,padx=50,pady=0)
         search_txt=ttk.Entry(search_frame,textvariable=self.var_case_search,width=18,font=("palatino",11,"bold"))
         search_txt.grid(row=0,column=2,sticky=W,padx=5)
 
@@ -654,6 +835,61 @@ class Criminal:
         ttk.Label(crimes_tab, text="").pack()
 
         # Upper_frame (Criminal Information)
+        upper_frame = LabelFrame(crimes_tab, bd=2, relief=RIDGE, text='Crime Details', font=('verdana', 11, 'bold'), fg='red', bg='white')
+        upper_frame.place(x=10, y=10, width=1500, height=560)
+
+        crimeid=Label(upper_frame,text='Crime_ID:',font=('verdana', 11),bg='white')
+        crimeid.grid(row=0,column=0,padx=2,sticky=W)
+
+        caseentry=ttk.Entry(upper_frame,textvariable=self.var_crime_id,width=22,font=('verdana', 11))
+        caseentry.grid(row=0,column=1,padx=2,sticky=W)
+
+        crimeName=Label(upper_frame,font=('verdana', 11),text="Crime_Name:",bg='white')
+        crimeName.grid(row=0,column=2,sticky=W,padx=2,pady=7)
+
+        txt_cname=ttk.Entry(upper_frame,textvariable=self.var_crime_name,width=22,font=('verdana', 11))
+        txt_cname.grid(row=0,column=3,sticky=W,padx=2,pady=7)
+
+        #Crime Desc
+        crimeDesc=Label(upper_frame,font=('verdana', 11),text="Crime_Description:",bg='white')
+        crimeDesc.grid(row=0,column=4,sticky=W,padx=2,pady=7)
+
+        txt_cdesc=ttk.Entry(upper_frame,textvariable=self.var_crime_description,width=22,font=('verdana', 11))
+        txt_cdesc.grid(row=0,column=5,sticky=W,padx=2,pady=7)
+
+        #severity level
+        severity=Label(upper_frame,font=('verdana', 11),text="Severity_Level:",bg='white')
+        severity.grid(row=1,column=0,sticky=W,padx=2,pady=7)
+
+        txt_severity=ttk.Entry(upper_frame,textvariable=self.var_severity_level,width=22,font=('verdana', 11))
+        txt_severity.grid(row=1,column=1,sticky=W,padx=2,pady=7)
+
+        # date committed
+        datecom=Label(upper_frame,font=('verdana', 11),text="Date_Committed:",bg='white')
+        datecom.grid(row=1,column=2,sticky=W,padx=2,pady=7)
+
+        txt_datecom=ttk.Entry(upper_frame,textvariable=self.var_date_committed,width=22,font=('verdana', 11))
+        txt_datecom.grid(row=1,column=3,sticky=W,padx=2,pady=7)
+
+        #Location
+        location=Label(upper_frame,font=('verdana', 11),text="Location:",bg='white')
+        location.grid(row=1,column=4,sticky=W,padx=2,pady=7)
+
+        txt_location=ttk.Entry(upper_frame,textvariable=self.var_crime_location,width=22,font=('verdana', 11))
+        txt_location.grid(row=1,column=5,sticky=W,padx=2,pady=7)
+
+        #criminal_Id
+        lbl_criminalID=Label(upper_frame,font=('verdana', 11),text="Criminal_ID:",bg='white')
+        lbl_criminalID.grid(row=2,column=0,sticky=W,padx=2,pady=7)
+
+        txt_criminalID=ttk.Entry(upper_frame,textvariable=self.var_criminal_id, width=22,font=('verdana', 11)) #might cause erros. watchlist
+        txt_criminalID.grid(row=2,column=1,sticky=W,padx=2,pady=7)
+
+        #Incharge Officer
+        lbl_incharge=Label(upper_frame,font=('verdana', 11),text="Incharge Officer:",bg='white')
+        lbl_incharge.grid(row=2,column=2,sticky=W,padx=2,pady=7)
+
+        txt_incharge=ttk.Entry(upper_frame,textvariable=self.var_incharge_officer,width=22,font=('verdana', 11))
         upper_frame = LabelFrame(crimes_tab, bd=2, relief=RIDGE, text='Crime Details', font=('palatino', 11, 'bold'), fg='red', bg='white')
         upper_frame.place(x=10, y=10, width=1500, height=560)
         
@@ -714,6 +950,20 @@ class Criminal:
         # Buttons for Information
         button_frame = Frame(upper_frame, bd=2, relief=RIDGE, bg='white')
         button_frame.place(x=5, y=200, width=620, height=45)
+
+        btn_add = Button(button_frame,command=self.add_crime_data, text='Save', font=('verdana',11), width=14, bg='#0073e6', fg='white')
+        btn_add.grid(row=0, column=0, padx=3, pady=5)
+        
+        btn_update=Button(button_frame,command=self.update_crime_data,text='Update',font=('verdana', 11),width=14,bg='#0073e6',fg='white')
+        btn_update.grid(row=0,column=1,padx=3,pady=5)
+
+        #Delete Button
+        btn_delete=Button(button_frame,command=self.delete_crime_data,text='Delete',font=('verdana', 11),width=14,bg='#0073e6',fg='white')
+        btn_delete.grid(row=0,column=2,padx=3,pady=5)
+
+        #Clear Button
+        btn_clear=Button(button_frame,command=self.clear_crime_data,text='Clear',font=('verdana', 11),width=14,bg='#0073e6',fg='white')
+
         btn_add = Button(button_frame,command=self.add_crime_data, text='Save', font=('palatino', 13, 'bold'), width=14, bg='blue', fg='white')
         btn_add.grid(row=0, column=0, padx=3, pady=5)
         
@@ -733,6 +983,18 @@ class Criminal:
         Main_frame = Frame(crimes_tab, bd=2, relief=RIDGE, bg='white')
         Main_frame.place(x=10, y=280, width=1500, height=560)
         
+        down_frame=LabelFrame(Main_frame,bd=2,relief=RIDGE,text='Crime Information Table',font=('verdana',11,'bold'),fg='red',bg='white')
+        down_frame.place(x=10,y=10,width=1480,height=270)
+
+        search_frame=LabelFrame(down_frame,bd=2,relief=RIDGE,text='Search Crime Record',font=('verdana',11,'bold'),fg='red',bg='white')
+        search_frame.place(x=0,y=0,width=1470,height=60)
+
+        search_by=Label(search_frame,font=('verdana',11,'bold'),text="Search By:",bg="white",fg="red")
+        search_by.grid(row=0,column=0,sticky=W,padx=5)
+
+        # self.var_com_search=StringVar()
+        combo_search_box=ttk.Combobox(search_frame,textvariable=self.var_com_crime_search,font=('verdana',11,'bold'),width=18,state='readonly')
+
         down_frame=LabelFrame(Main_frame,bd=2,relief=RIDGE,text='Crime Information Table',font=('palatino',11,'bold'),fg='red',bg='white')
         down_frame.place(x=10,y=10,width=1480,height=270)
 
@@ -744,24 +1006,40 @@ class Criminal:
 
         # self.var_com_search=StringVar()
         combo_search_box=ttk.Combobox(search_frame,textvariable=self.var_com_crime_search,font=("palatino",11,"bold"),width=18,state='readonly')
+
         combo_search_box['value']=('Select Option','crime_id','criminal_id','Severity_Level','crime_name','incharge_officer')
         combo_search_box.current(0)
         combo_search_box.grid(row=0,column=1,sticky=W,padx=5)
 
         # self.var_search=StringVar()
+
+        search_txt=ttk.Entry(search_frame,textvariable=self.var_crime_search,width=18,font=('verdana',11,'bold'))
+        search_txt.grid(row=0,column=2,sticky=W,padx=5)
+
+        #search button
+        btn_search=Button(search_frame,command=self.search_crime_data,text='Search',font=('verdana',11),width=14,bg='#0073e6',fg="white")
+
         search_txt=ttk.Entry(search_frame,textvariable=self.var_crime_search,width=18,font=("palatino",11,"bold"))
         search_txt.grid(row=0,column=2,sticky=W,padx=5)
 
         #search button
         btn_search=Button(search_frame,command=self.search_crime_data,text='Search',font=("palatino",13,"bold"),width=14,bg='blue',fg='white', fg='white')
+
         btn_search.grid(row=0,column=3,padx=3,pady=5)
         
         #all button
+
+        btn_all=Button(search_frame,command=self.fetch_crime_data,text='Show All',font=('verdana',11),width=14,bg='#0073e6',fg="white")
+        btn_all.grid(row=0,column=4,padx=3,pady=5)
+
+        # crimeagency=Label(search_frame,font=("arial",30,"bold"),text="NATIONAL CRIME AGENCY",bg='white',fg='crimson')
+        # crimeagency.grid(row=0,column=5,sticky=W,padx=50,pady=0)
         btn_all=Button(search_frame,command=self.fetch_crime_data,text='Show All',font=("palatino",13,"bold"),width=14,bg='blue',fg='white', fg='white')
         btn_all.grid(row=0,column=4,padx=3,pady=5)
 
         crimeagency=Label(search_frame,font=("palatino",27,"bold"),text="NATIONAL CRIME AGENCY",bg='white',fg='crimson')
         crimeagency.grid(row=0,column=5,sticky=W,padx=70,pady=0)
+
 
         # Table Frame
         table_frame=Frame(down_frame,bd=2,relief=RIDGE)
@@ -937,6 +1215,19 @@ class Criminal:
         Main_frame = Frame(prisons_tab, bd=2, relief=RIDGE, bg='white')
         Main_frame.place(x=10, y=20, width=1500, height=560)
         
+
+        down_frame=LabelFrame(Main_frame,bd=2,relief=RIDGE,text='Prison Information Table',font=('verdana',11,'bold'),fg='red',bg='white')
+        down_frame.place(x=10,y=10,width=1480,height=270)
+
+        search_frame=LabelFrame(down_frame,bd=2,relief=RIDGE,text='Search Prison',font=('verdana',11,'bold'),fg='red',bg='white')
+        search_frame.place(x=0,y=0,width=1470,height=60)
+
+        search_by=Label(search_frame,font=('verdana',11,'bold'),text="Search By:",bg="white",fg="red")
+        search_by.grid(row=0,column=0,sticky=W,padx=5)
+
+        # self.var_com_search=StringVar()
+        combo_search_box=ttk.Combobox(search_frame,textvariable=self.var_com_prison_search,font=('verdana',11,'bold'),width=18,state='readonly')
+
         down_frame=LabelFrame(Main_frame,bd=2,relief=RIDGE,text='Prison Information Table',font=('palatino',11,'bold'),fg='red',bg='white')
         down_frame.place(x=10,y=10,width=1480,height=270)
 
@@ -948,11 +1239,27 @@ class Criminal:
 
         # self.var_com_search=StringVar()
         combo_search_box=ttk.Combobox(search_frame,textvariable=self.var_com_prison_search,font=("palatino",11,"bold"),width=18,state='readonly')
+
         combo_search_box['value']=('Select Option','prison_id')
         combo_search_box.current(0)
         combo_search_box.grid(row=0,column=1,sticky=W,padx=5)
 
         # self.var_search=StringVar()
+
+        search_txt=ttk.Entry(search_frame,textvariable=self.var_prison_search,width=18,font=('verdana',11,'bold'))
+        search_txt.grid(row=0,column=2,sticky=W,padx=5)
+
+        #search button
+        btn_search=Button(search_frame,command=self.search_prison_data,text='Search',font=('verdana',11),width=14,bg='#0073e6',fg="white")
+        btn_search.grid(row=0,column=3,padx=3,pady=5)
+
+        #all button
+        btn_all=Button(search_frame,command=self.fetch_prison_data,text='Show All',font=('verdana',11),width=14,bg='#0073e6',fg="white")
+        btn_all.grid(row=0,column=4,padx=3,pady=5)
+
+        # crimeagency=Label(search_frame,font=("arial",30,"bold"),text="NATIONAL CRIME AGENCY",bg='white',fg='crimson')
+        # crimeagency.grid(row=0,column=5,sticky=W,padx=50,pady=0)
+
         search_txt=ttk.Entry(search_frame,textvariable=self.var_prison_search,width=18,font=("palatino",11,"bold"))
         search_txt.grid(row=0,column=2,sticky=W,padx=5)
 
@@ -1043,6 +1350,17 @@ class Criminal:
         Main_frame = Frame(officers_tab, bd=2, relief=RIDGE, bg='white')
         Main_frame.place(x=10, y=20, width=1500, height=560)
         
+        down_frame=LabelFrame(Main_frame,bd=2,relief=RIDGE,text='Officer Information Table',font=('verdana',11,'bold'),fg='red',bg='white')
+        down_frame.place(x=10,y=10,width=1480,height=270)
+
+        search_frame=LabelFrame(down_frame,bd=2,relief=RIDGE,text='Search Officer',font=('verdana',11,'bold'),fg='red',bg='white')
+        search_frame.place(x=0,y=0,width=1470,height=60)
+
+        search_by=Label(search_frame,font=('verdana',11,'bold'),text="Search By:",bg="white",fg="red")
+        search_by.grid(row=0,column=0,sticky=W,padx=5)
+
+        # self.var_com_search=StringVar()
+        combo_search_box=ttk.Combobox(search_frame,textvariable=self.var_com_officer_search,font=('verdana',11,'bold'),width=18,state='readonly')
         down_frame=LabelFrame(Main_frame,bd=2,relief=RIDGE,text='Officer Information Table',font=('palatino',11,'bold'),fg='red',bg='white')
         down_frame.place(x=10,y=10,width=1480,height=270)
 
@@ -1054,11 +1372,25 @@ class Criminal:
 
         # self.var_com_search=StringVar()
         combo_search_box=ttk.Combobox(search_frame,textvariable=self.var_com_officer_search,font=("palatino",11,"bold"),width=18,state='readonly')
+
         combo_search_box['value']=('Select Option','officer_id')
         combo_search_box.current(0)
         combo_search_box.grid(row=0,column=1,sticky=W,padx=5)
 
         # self.var_search=StringVar()
+        search_txt=ttk.Entry(search_frame,textvariable=self.var_officer_search,width=18,font=('verdana',11,'bold'))
+        search_txt.grid(row=0,column=2,sticky=W,padx=5)
+
+        #search button
+        btn_search=Button(search_frame,command=self.search_officer_data,text='Search',font=('verdana',11),width=14,bg='#0073e6',fg="white")
+        btn_search.grid(row=0,column=3,padx=3,pady=5)
+
+        #all button
+        btn_all=Button(search_frame,command=self.fetch_officer_data,text='Show All',font=('verdana',11),width=14,bg='#0073e6',fg="white")
+        btn_all.grid(row=0,column=4,padx=3,pady=5)
+
+        # crimeagency=Label(search_frame,font=("arial",30,"bold"),text="NATIONAL CRIME AGENCY",bg='white',fg='crimson')
+        # crimeagency.grid(row=0,column=5,sticky=W,padx=50,pady=0)
         search_txt=ttk.Entry(search_frame,width=18,font=("palatino",11,"bold"))
         search_txt.grid(row=0,column=2,sticky=W,padx=5)
 
